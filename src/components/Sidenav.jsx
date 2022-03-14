@@ -9,6 +9,9 @@ const Sidenav = () => {
 			<a href='#' className='sidenav__link'>
 				Użytkownicy
 			</a>
+
+			<div className='sidenav__divider' />
+
 			<a href='#' className='sidenav__link'>
 				Konto
 			</a>
