@@ -1,7 +1,12 @@
 import React from 'react';
+import Sidenav from './components/Sidenav';
 
 function App() {
-	return <></>;
+	return (
+		<>
+			<Sidenav />
+		</>
+	);
 }
 
 export default App;
