@@ -13,4 +13,22 @@
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+
+	&__link {
+		text-transform: uppercase;
+		text-decoration: none;
+		color: $font-color-light;
+		display: block;
+		width: 100%;
+		padding: 10px 20px;
+		margin: 5px 0;
+		transition: 0.1s;
+		letter-spacing: 1px;
+
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.2);
+
+			//TODO: show arrow right
+		}
+	}
 }
