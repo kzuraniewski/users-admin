@@ -1,0 +1,4 @@
+node_modules/
+_reset.scss
+package.json
+package-lock.json

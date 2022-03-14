@@ -1,0 +1,17 @@
+// colors
+$layout-primary: #2525a1;
+
+$font-color-light: #ffffff;
+$font-color-dark: #070707;
+
+// typography
+$font-family: 'Roboto', sans-serif;
+
+// breakpoints
+$breakpoints: (
+	'sm': 576px,
+	'md': 768px,
+	'lg': 992px,
+	'xl': 1200px,
+	'xxl': 1400px,
+);

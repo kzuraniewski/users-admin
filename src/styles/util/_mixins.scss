@@ -1,0 +1,6 @@
+@mixin children-spacing($margin, $align: 'bottom') {
+	> *:not(:last-child) {
+		margin: 0;
+		margin-#{$align}: $margin;
+	}
+}
