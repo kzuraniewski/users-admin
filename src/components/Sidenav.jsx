@@ -4,10 +4,10 @@ const Sidenav = () => {
 	return (
 		<div className='sidenav'>
 			<a href='#' className='sidenav__link'>
-				Dodaj
+				Użytkownicy
 			</a>
 			<a href='#' className='sidenav__link'>
-				Użytkownicy
+				Dodaj
 			</a>
 
 			<div className='sidenav__divider' />
