@@ -42,7 +42,7 @@ const columns = [
 const rows = getRandomUsers(25);
 
 const UsersTable = () => {
-	const handleCellEditCommit = React.useCallback(async params => {
+	const handleRowEditCommit = React.useCallback(async params => {
 		console.log('cell saved: ', params);
 		// TODO: server communication
 	}, []);
@@ -50,7 +50,7 @@ const UsersTable = () => {
 	return (
 		<DataGrid
 			editMode='row'
-			onCellEditCommit={handleCellEditCommit}
+			onRowEditCommit={handleRowEditCommit}
 			rows={rows}
 			columns={columns}
 			components={{ Toolbar: GridToolbar }}
