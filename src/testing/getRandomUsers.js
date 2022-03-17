@@ -15,7 +15,7 @@ const getRandomUsers = n =>
 		const rate2 = fullPrice - rate1;
 
 		return {
-			id: index,
+			lp: index,
 			data: faker.date.past().toISOString().slice(0, 10),
 			nrUmowy: `${faker.datatype.number({ min: 10, max: 99 })}/${faker.datatype.number({
 				min: 10,
