@@ -1,8 +1,9 @@
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import getRandomUsers from '../testing/getRandomUsers.js';
 
 const columns = [
-	{ field: 'lp', headerName: 'LP', width: 50 },
+	{ field: 'id', headerName: 'LP', width: 100 },
 	{ field: 'data', headerName: 'Data', width: 150 },
 	{ field: 'nrUmowy', headerName: 'Numer umowy', width: 150 },
 	{ field: 'firma', headerName: 'Firma', width: 150 },
@@ -20,8 +21,10 @@ const columns = [
 	{ field: 'lh', headerName: 'LH', width: 150 },
 ];
 
+const rows = getRandomUsers(25);
+
 const UsersTable = () => {
-	return;
+	return <DataGrid rows={rows} columns={columns} />;
 };
 
 export default UsersTable;
