@@ -1,11 +1,10 @@
 import React from 'react';
-import UsersTable from './components/UsersTable';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { plPL } from '@mui/material/locale';
 import { plPL as plPLDataGrid } from '@mui/x-data-grid';
 import Header from './components/Header';
-import { Container } from '@mui/material';
+import Panel from './components/Panel';
 
 const theme = createTheme(plPL, plPLDataGrid, {
 	palette: {
@@ -30,9 +29,7 @@ function App() {
 			<CssBaseline />
 			<ThemeProvider theme={theme}>
 				<Header />
-				<Container style={{ height: '85vh', padding: '30px' }}>
-					<UsersTable />
-				</Container>
+				<Panel />
 			</ThemeProvider>
 		</>
 	);
