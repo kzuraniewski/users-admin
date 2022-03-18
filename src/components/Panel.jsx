@@ -8,7 +8,11 @@ const Panel = () => {
 
 	return (
 		<>
-			<AddUserModal open={openModal} onClose={() => setOpenModal(false)} />
+			<AddUserModal
+				open={openModal}
+				onClose={() => setOpenModal(false)}
+				closeModal={() => setOpenModal(false)}
+			/>
 			<Box height='80vh' padding='45px 30px'>
 				<UsersTable setShow={setOpenModal} />
 			</Box>
