@@ -1,22 +1,6 @@
-import { Box, Button, FormControl, Typography, TextField } from '@mui/material';
+import { Box, Button, Typography, TextField } from '@mui/material';
 import React from 'react';
-
-const Horizontal = ({ children, spacing = 0, ...props }) => {
-	return (
-		<Box
-			display='flex'
-			width='100%'
-			sx={{
-				'> *:not(:last-child)': {
-					mr: spacing,
-				},
-			}}
-			{...props}
-		>
-			{children}
-		</Box>
-	);
-};
+import Horizontal from '../utility/Horizontal';
 
 const FieldGroup = ({ children, label, ...props }) => {
 	return (
