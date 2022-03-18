@@ -26,6 +26,9 @@ const theme = createTheme(plPL, plPLDataGrid, {
 			defaultProps: {
 				variant: 'standard',
 				margin: 'dense',
+				sx: {
+					display: 'block',
+				},
 			},
 		},
 	},
