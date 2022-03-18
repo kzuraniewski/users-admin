@@ -7,36 +7,36 @@ import { Edit, Delete } from '@mui/icons-material';
 // TODO: row deletion
 
 const columns = [
-	{
-		field: 'actions',
-		headerName: 'Akcje',
-		type: 'actions',
-		getActions: () => [
-			<GridActionsCellItem icon={<Delete />} label='Usuń' />,
-			<GridActionsCellItem icon={<Edit />} label='Edytuj' />,
-		],
-	},
-	{ field: 'lp', headerName: 'LP', width: 100, type: 'number' },
-	{ field: 'data', headerName: 'Data', width: 150, editable: true },
-	{ field: 'nrUmowy', headerName: 'Numer umowy', width: 150, editable: true },
-	{ field: 'firma', headerName: 'Firma', width: 150, editable: true },
-	{ field: 'nip', headerName: 'NIP', width: 150, editable: true },
-	{ field: 'adres', headerName: 'Adres', width: 150, editable: true },
-	{ field: 'reprezentant', headerName: 'Reprezentant', width: 150, editable: true },
+	// {
+	// 	field: 'actions',
+	// 	headerName: 'Akcje',
+	// 	type: 'actions',
+	// 	getActions: () => [
+	// 		<GridActionsCellItem icon={<Delete />} label='Usuń' />,
+	// 		<GridActionsCellItem icon={<Edit />} label='Edytuj' />,
+	// 	],
+	// },
+	{ field: 'lp', headerName: 'LP', type: 'number' },
+	{ field: 'data', headerName: 'Data', editable: true },
+	{ field: 'nrUmowy', headerName: 'Nr umowy', width: 120, editable: true },
+	{ field: 'firma', headerName: 'Firma', width: 350, editable: true },
+	{ field: 'nip', headerName: 'NIP', width: 120, editable: true },
+	{ field: 'adres', headerName: 'Adres', width: 300, editable: true },
+	{ field: 'reprezentant', headerName: 'Reprezentant', width: 170, editable: true },
 	{ field: 'telefon', headerName: 'Telefon', width: 150, editable: true },
-	{ field: 'email', headerName: 'E-mail', width: 150, editable: true },
+	{ field: 'email', headerName: 'E-mail', width: 200, editable: true },
 	{
 		field: 'calkowita',
 		headerName: 'Kwota całkowita',
-		width: 150,
+		width: 130,
 		type: 'number',
 		editable: true,
 	},
-	{ field: 'calkowitaSlownie', headerName: 'Słownie', width: 150 },
-	{ field: 'rata1', headerName: 'Rata 1', width: 150, type: 'number', editable: true },
-	{ field: 'rata1Slownie', headerName: 'Słownie', width: 150 },
-	{ field: 'rata2', headerName: 'Rata 2', width: 150, type: 'number', editable: true },
-	{ field: 'rata2Slownie', headerName: 'Słownie', width: 150 },
+	{ field: 'calkowitaSlownie', headerName: 'Słownie', width: 220 },
+	{ field: 'rata1', headerName: 'Rata 1', width: 130, type: 'number', editable: true },
+	{ field: 'rata1Slownie', headerName: 'Słownie', width: 220 },
+	{ field: 'rata2', headerName: 'Rata 2', width: 130, type: 'number', editable: true },
+	{ field: 'rata2Slownie', headerName: 'Słownie', width: 220 },
 ];
 
 const rows = getRandomUsers(25);
