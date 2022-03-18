@@ -1,21 +1,11 @@
 import React from 'react';
-import { DataGrid, GridActionsCellItem, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import getRandomUsers from '../testing/getRandomUsers.js';
-import { Edit, Delete } from '@mui/icons-material';
 
 // TODO: validation
 // TODO: row deletion
 
 const columns = [
-	// {
-	// 	field: 'actions',
-	// 	headerName: 'Akcje',
-	// 	type: 'actions',
-	// 	getActions: () => [
-	// 		<GridActionsCellItem icon={<Delete />} label='Usuń' />,
-	// 		<GridActionsCellItem icon={<Edit />} label='Edytuj' />,
-	// 	],
-	// },
 	{ field: 'lp', headerName: 'LP', type: 'number' },
 	{ field: 'data', headerName: 'Data', editable: true },
 	{ field: 'nrUmowy', headerName: 'Nr umowy', width: 120, editable: true },
