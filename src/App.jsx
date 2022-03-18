@@ -21,6 +21,14 @@ const theme = createTheme(plPL, plPLDataGrid, {
 			contrastText: '$ffffff',
 		},
 	},
+	components: {
+		MuiTextField: {
+			defaultProps: {
+				variant: 'standard',
+				margin: 'dense',
+			},
+		},
+	},
 });
 
 function App() {
