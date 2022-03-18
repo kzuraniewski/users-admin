@@ -1,6 +1,15 @@
-import React from 'react';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import React, { useState } from 'react';
+import {
+	DataGrid,
+	GridToolbarColumnsButton,
+	GridToolbarContainer,
+	GridToolbarDensitySelector,
+	GridToolbarExport,
+	GridToolbarFilterButton,
+} from '@mui/x-data-grid';
 import getRandomUsers from '../testing/getRandomUsers.js';
+import { Button } from '@mui/material';
+import Add from '@mui/icons-material/Add';
 
 // TODO: validation
 // TODO: row deletion
@@ -31,7 +40,22 @@ const columns = [
 
 const rows = getRandomUsers(25);
 
-const UsersTable = () => {
+const Toolbar = ({ setShow }) => {
+	return (
+		<GridToolbarContainer>
+			<GridToolbarColumnsButton />
+			<GridToolbarFilterButton />
+			<GridToolbarDensitySelector />
+			<GridToolbarExport />
+
+			<Button startIcon={<Add />} onClick={() => setShow(true)} sx={{ ml: 'auto' }}>
+				Dodaj
+			</Button>
+		</GridToolbarContainer>
+	);
+};
+
+const UsersTable = ({ setShow }) => {
 	const handleRowEditCommit = React.useCallback(async params => {
 		console.log('cell saved: ', params);
 		// TODO: server communication
@@ -43,7 +67,8 @@ const UsersTable = () => {
 			onRowEditCommit={handleRowEditCommit}
 			rows={rows}
 			columns={columns}
-			components={{ Toolbar: GridToolbar }}
+			components={{ Toolbar }}
+			componentsProps={{ toolbar: { setShow } }}
 			getRowId={row => row.lp}
 			// rowsPerPageOptions={[5, 15, 50]}
 		/>
