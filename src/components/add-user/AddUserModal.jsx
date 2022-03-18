@@ -11,11 +11,15 @@ const boxStyle = {
 	p: 4,
 };
 
-const AddUserModal = props => {
+const AddUserModal = ({ closeModal = null, ...props }) => {
 	return (
 		<Modal {...props}>
 			<Paper sx={boxStyle} variant='elevation' elevation={2}>
-				<AddUserForm />
+				<AddUserForm
+					onSubmit={() => {
+						closeModal && closeModal();
+					}}
+				/>
 			</Paper>
 		</Modal>
 	);
