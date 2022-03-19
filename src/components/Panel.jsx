@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import AddUserModal from './add-user/AddUserModal.jsx';
 import UsersTable from './UsersTable.jsx';
 
-const Panel = () => {
+const Panel = props => {
 	const [openModal, setOpenModal] = useState(false);
 
 	return (
@@ -13,7 +13,7 @@ const Panel = () => {
 				onClose={() => setOpenModal(false)}
 				closeModal={() => setOpenModal(false)}
 			/>
-			<Box height='80vh' padding='45px 30px'>
+			<Box height='80vh' padding='45px 30px' {...props}>
 				<UsersTable setShow={setOpenModal} />
 			</Box>
 		</>

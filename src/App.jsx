@@ -5,6 +5,8 @@ import { plPL } from '@mui/material/locale';
 import { plPL as plPLDataGrid } from '@mui/x-data-grid';
 import Header from './components/Header';
 import Panel from './components/Panel';
+import Sidenav from './components/Sidenav';
+import { Box } from '@mui/material';
 
 const theme = createTheme(plPL, plPLDataGrid, {
 	palette: {
@@ -40,7 +42,12 @@ function App() {
 			<CssBaseline />
 			<ThemeProvider theme={theme}>
 				<Header />
-				<Panel />
+				<Box display='flex'>
+					<Sidenav />
+
+					{/* TODO: routing */}
+					<Panel sx={{ flex: '1' }} />
+				</Box>
 			</ThemeProvider>
 		</>
 	);

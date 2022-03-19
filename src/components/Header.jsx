@@ -3,7 +3,7 @@ import React from 'react';
 
 const Header = () => {
 	return (
-		<AppBar position='sticky'>
+		<AppBar position='sticky' sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}>
 			<Toolbar>
 				<Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
 					Użytkownicy
