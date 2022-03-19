@@ -26,3 +26,6 @@ const AddUserModal = ({ closeModal = null, ...props }) => {
 };
 
 export default AddUserModal;
+
+// FIXME Dialog invalid overload
+// TODO Use dialog instead of modal

@@ -11,9 +11,6 @@ import getRandomUsers from '../testing/getRandomUsers.js';
 import { Button } from '@mui/material';
 import Add from '@mui/icons-material/Add';
 
-// TODO: validation
-// TODO: row deletion
-
 const columns = [
 	{ field: 'lp', headerName: 'LP', type: 'number' },
 	{ field: 'data', headerName: 'Data', editable: true },
@@ -58,7 +55,7 @@ const Toolbar = ({ setShow }) => {
 const UsersTable = ({ setShow }) => {
 	const handleRowEditCommit = React.useCallback(async params => {
 		console.log('cell saved: ', params);
-		// TODO: server communication
+		// TODO Server communication
 	}, []);
 
 	return (
@@ -76,3 +73,8 @@ const UsersTable = ({ setShow }) => {
 };
 
 export default UsersTable;
+
+// TODO Validation
+// TODO User deletion
+// TODO Actions
+// TODO Columns hidden by default

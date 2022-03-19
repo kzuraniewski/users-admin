@@ -52,7 +52,6 @@ function App() {
 				<Box display='flex'>
 					<Sidenav />
 
-					{/* TODO: routing */}
 					<Panel sx={{ flex: '1' }} />
 				</Box>
 			</ThemeProvider>
@@ -61,3 +60,7 @@ function App() {
 }
 
 export default App;
+
+// TODO Routing
+// TODO Theme in external file
+// FEATURE Main panel with Masonry
