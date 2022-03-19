@@ -27,22 +27,22 @@ const AddUserForm = ({ onSubmit = null }) => {
 					<FieldGroup label='Dane firmy' mr={4}>
 						<TextField label='Firma' />
 						<TextField label='Adres' />
-						<TextField label='NIP' />
+						<TextField label='NIP' type='number' />
 					</FieldGroup>
 
 					<FieldGroup label='Dane osobowe'>
 						<TextField label='Reprezentant' />
-						<TextField label='E-mail' />
-						<TextField label='Telefon' />
+						<TextField label='E-mail' type='email' />
+						<TextField label='Telefon' type='phone' />
 					</FieldGroup>
 				</Horizontal>
 
 				<FieldGroup label='Płatności' sx={{ mt: 4 }}>
-					<TextField label='Kwota całkowita' sx={{ display: 'block' }} />
+					<TextField label='Kwota całkowita' type='number' sx={{ display: 'block' }} />
 
 					<Horizontal spacing={4}>
-						<TextField label='Rata 1' />
-						<TextField label='Rata 2' />
+						<TextField label='Rata 1' type='number' />
+						<TextField label='Rata 2' type='number' />
 					</Horizontal>
 				</FieldGroup>
 
