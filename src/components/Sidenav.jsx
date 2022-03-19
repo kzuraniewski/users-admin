@@ -10,6 +10,14 @@ import GroupIcon from '@mui/icons-material/Group';
 import Divider from '@mui/material/Divider';
 
 const drawerWidth = 240;
+const groups = [
+	[
+		['Klienci', <GroupIcon />],
+		// ['Name', <Icon />],
+		// ...
+	],
+	// other groups...
+];
 
 const Sidenav = () => {
 	return (
@@ -25,12 +33,17 @@ const Sidenav = () => {
 			<Toolbar />
 			<Box sx={{ overflow: 'auto' }}>
 				<List>
-					<ListItem button>
-						<ListItemIcon>
-							<GroupIcon />
-						</ListItemIcon>
-						<ListItemText primary='Klienci' />
-					</ListItem>
+					{groups.map((group, groupIndex) => (
+						<>
+							{group.map(([name, icon], nameIndex) => (
+								<ListItem key={nameIndex} button>
+									<ListItemIcon>{icon}</ListItemIcon>
+									<ListItemText primary={name} />
+								</ListItem>
+							))}
+							{groupIndex < groups.length - 1 && <Divider variant='middle' />}
+						</>
+					))}
 				</List>
 			</Box>
 		</Drawer>

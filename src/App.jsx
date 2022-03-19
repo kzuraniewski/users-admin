@@ -33,6 +33,13 @@ const theme = createTheme(plPL, plPLDataGrid, {
 				},
 			},
 		},
+		MuiDivider: {
+			defaultProps: {
+				sx: {
+					my: 1,
+				},
+			},
+		},
 	},
 });
 
