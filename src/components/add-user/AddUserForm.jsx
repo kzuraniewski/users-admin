@@ -62,5 +62,5 @@ const AddUserForm = ({ onSubmit = null }) => {
 
 export default AddUserForm;
 
-// TODO Loading visualised
-// TODO Use DatePicker
+// TODO: Loading visualised
+// TODO: Use DatePicker

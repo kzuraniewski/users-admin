@@ -61,8 +61,8 @@ function App() {
 
 export default App;
 
-// TODO Routing
-// TODO Theme in external file
-// TODO User panel, https://codesandbox.io/embed/github/marmelab/react-admin/tree/master/examples/simple?hidenavigation=1&editorsize=0
-// TODO Authorisation
-// FEATURE Main panel with Masonry
+// TODO: Routing
+// TODO: Theme in external file
+// TODO: User panel, https://codesandbox.io/embed/github/marmelab/react-admin/tree/master/examples/simple?hidenavigation=1&editorsize=0
+// TODO: Authorisation
+// FEATURE: Main panel with Masonry

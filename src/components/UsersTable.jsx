@@ -55,7 +55,7 @@ const Toolbar = ({ setShow }) => {
 const UsersTable = ({ setShow }) => {
 	const handleRowEditCommit = React.useCallback(async params => {
 		console.log('cell saved: ', params);
-		// TODO Server communication
+		// TODO: Server communication
 	}, []);
 
 	return (
@@ -74,7 +74,7 @@ const UsersTable = ({ setShow }) => {
 
 export default UsersTable;
 
-// TODO Validation
-// TODO User deletion
-// TODO Actions
-// TODO Columns hidden by default
+// TODO: Validation
+// TODO: User deletion
+// TODO: Actions
+// TODO: Columns hidden by default

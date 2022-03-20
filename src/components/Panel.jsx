@@ -22,4 +22,4 @@ const Panel = props => {
 
 export default Panel;
 
-// TODO Snackbars
+// TODO: Snackbars

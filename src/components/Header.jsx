@@ -25,4 +25,4 @@ const Header = () => {
 
 export default Header;
 
-// TODO Account settings list
+// TODO: Account settings list
