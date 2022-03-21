@@ -37,7 +37,7 @@ const columns = [
 
 const rows = getRandomUsers(25);
 
-const Toolbar = ({ setShow }) => {
+const Toolbar = () => {
 	return (
 		<GridToolbarContainer>
 			<GridToolbarColumnsButton />
@@ -45,14 +45,14 @@ const Toolbar = ({ setShow }) => {
 			<GridToolbarDensitySelector />
 			<GridToolbarExport />
 
-			<Button startIcon={<Add />} onClick={() => setShow(true)} sx={{ ml: 'auto' }}>
+			<Button startIcon={<Add />} sx={{ ml: 'auto' }}>
 				Dodaj
 			</Button>
 		</GridToolbarContainer>
 	);
 };
 
-const UsersTable = ({ setShow }) => {
+const UsersTable = () => {
 	const handleRowEditCommit = React.useCallback(async params => {
 		console.log('cell saved: ', params);
 		// TODO: Server communication
@@ -65,7 +65,6 @@ const UsersTable = ({ setShow }) => {
 			rows={rows}
 			columns={columns}
 			components={{ Toolbar }}
-			componentsProps={{ toolbar: { setShow } }}
 			getRowId={row => row.lp}
 			// rowsPerPageOptions={[5, 15, 50]}
 		/>
