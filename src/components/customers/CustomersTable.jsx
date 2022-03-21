@@ -7,7 +7,7 @@ import {
 	GridToolbarExport,
 	GridToolbarFilterButton,
 } from '@mui/x-data-grid';
-import getRandomUsers from '../testing/getRandomUsers.js';
+import getRandomUsers from '../../testing/getRandomUsers.js';
 import { Button } from '@mui/material';
 import Add from '@mui/icons-material/Add';
 

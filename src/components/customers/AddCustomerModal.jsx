@@ -1,7 +1,7 @@
 import { Paper } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import React from 'react';
-import AddUserForm from './AddUserForm';
+import AddCustomerForm from './AddCustomerForm';
 
 const boxStyle = {
 	position: 'absolute',
@@ -15,7 +15,7 @@ const AddUserModal = ({ closeModal = null, ...props }) => {
 	return (
 		<Modal {...props}>
 			<Paper sx={boxStyle} variant='elevation' elevation={2}>
-				<AddUserForm
+				<AddCustomerForm
 					onSubmit={() => {
 						closeModal && closeModal();
 					}}

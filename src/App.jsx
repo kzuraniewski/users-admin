@@ -4,7 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { plPL } from '@mui/material/locale';
 import { plPL as plPLDataGrid } from '@mui/x-data-grid';
 import Header from './components/Header';
-import Panel from './components/Panel';
+import Panel from './components/customers/CustomersPanel';
 import Sidenav from './components/Sidenav';
 import { Box } from '@mui/material';
 

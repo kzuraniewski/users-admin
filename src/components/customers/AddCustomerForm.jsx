@@ -13,12 +13,12 @@ const FieldGroup = ({ children, label, ...props }) => {
 	);
 };
 
-const AddUserForm = ({ onSubmit = null }) => {
+const AddCustomerForm = ({ onSubmit = null }) => {
 	return (
 		<form>
 			<Box display='flex' flexDirection='column'>
 				<Typography variant='h4' component='h2' mb={4}>
-					Dodaj użytkownika
+					Dodaj klienta
 				</Typography>
 
 				<TextField label='Data' sx={{ alignSelf: 'flex-start' }} />
@@ -60,7 +60,7 @@ const AddUserForm = ({ onSubmit = null }) => {
 	);
 };
 
-export default AddUserForm;
+export default AddCustomerForm;
 
 // TODO: Loading visualised
 // TODO: Use DatePicker
