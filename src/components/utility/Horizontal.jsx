@@ -1,18 +1,9 @@
 import Box from '@mui/material/Box';
 import React from 'react';
 
-const Horizontal = ({ children, spacing = 0, ...props }) => {
+const Horizontal = ({ children, ...props }) => {
 	return (
-		<Box
-			display='flex'
-			width='100%'
-			sx={{
-				'> *:not(:last-child)': {
-					mr: spacing,
-				},
-			}}
-			{...props}
-		>
+		<Box display='flex' justifyContent='space-between' width='100%' {...props}>
 			{children}
 		</Box>
 	);
