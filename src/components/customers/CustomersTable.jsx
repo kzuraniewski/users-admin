@@ -55,7 +55,12 @@ const UsersTable = ({ onRowSelected, ...props }) => {
 			onSelectionModelChange={([firstId]) => onRowSelected(firstId)}
 			initialState={{
 				columns: {
-					columnVisibilityModel: getVisibilityModel(['data', 'firma', 'reprezentant']),
+					columnVisibilityModel: getVisibilityModel([
+						'data',
+						'firma',
+						'reprezentant',
+						'telefon',
+					]),
 				},
 			}}
 			{...props}
