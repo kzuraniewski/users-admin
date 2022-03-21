@@ -6,9 +6,6 @@ import {
 	GridToolbarDensitySelector,
 	GridToolbarExport,
 	GridToolbarFilterButton,
-	DataGridProps,
-	GridRowId,
-	GridColumnVisibilityModel,
 } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
 import Add from '@mui/icons-material/Add';
@@ -29,13 +26,15 @@ const Toolbar = () => {
 };
 
 /**
+ * @typedef {import('@mui/x-data-grid').DataGridProps} DataGridProps
+ * @typedef {import('@mui/x-data-grid').GridRowId} GridRowId
  * @param {DataGridProps & {onRowSelected: (id: GridRowId) => any}} props
  */
 const UsersTable = ({ onRowSelected, ...props }) => {
 	const getVisibilityModel = useCallback(
 		/**
 		 * Hide all columns except given ones
-		 * @param {array} visibleColumns
+		 * @param {string[]} visibleColumns
 		 * @returns {any}
 		 */
 		visibleColumns => {
