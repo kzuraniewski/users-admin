@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import Toolbar from '@mui/material/Toolbar';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Drawer from '@mui/material/Drawer';
@@ -36,10 +36,10 @@ const Sidenav = () => {
 					{groups.map((group, groupIndex) => (
 						<>
 							{group.map(([name, icon], nameIndex) => (
-								<ListItem key={nameIndex} button>
+								<ListItemButton key={nameIndex}>
 									<ListItemIcon>{icon}</ListItemIcon>
 									<ListItemText primary={name} />
-								</ListItem>
+								</ListItemButton>
 							))}
 							{groupIndex < groups.length - 1 && <Divider variant='middle' />}
 						</>
