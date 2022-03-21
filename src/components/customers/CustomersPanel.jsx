@@ -61,3 +61,4 @@ export default Panel;
 
 // TODO: Snackbars
 // FIXME: Opening user panel not through changing `selectedUser`
+// TODO: Formatting values
