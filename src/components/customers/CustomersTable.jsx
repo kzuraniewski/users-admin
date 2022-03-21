@@ -27,10 +27,9 @@ const Toolbar = () => {
 
 /**
  * @typedef {import('@mui/x-data-grid').DataGridProps} DataGridProps
- * @typedef {import('@mui/x-data-grid').GridRowId} GridRowId
- * @param {DataGridProps & {onRowSelected: (id: GridRowId) => any}} props
+ * @param {DataGridProps} props
  */
-const UsersTable = ({ onRowSelected, ...props }) => {
+const UsersTable = props => {
 	const getVisibilityModel = useCallback(
 		/**
 		 * Hide all columns except given ones
@@ -51,11 +50,10 @@ const UsersTable = ({ onRowSelected, ...props }) => {
 	return (
 		<DataGrid
 			components={{ Toolbar }}
-			// for now it is impossible to select more than one row
-			onSelectionModelChange={([firstId]) => onRowSelected(firstId)}
 			initialState={{
 				columns: {
 					columnVisibilityModel: getVisibilityModel([
+						'actions',
 						'data',
 						'firma',
 						'reprezentant',

@@ -1,8 +1,11 @@
 import { Box } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import getRandomUsers from '../../testing/getRandomUsers.js';
 import CustomersTable from './CustomersTable.jsx';
 import CustomerEdit from './CustomerEdit.jsx';
+import { GridActionsCellItem } from '@mui/x-data-grid';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const columns = [
 	{ field: 'lp', headerName: 'LP', type: 'number' },
@@ -32,6 +35,23 @@ const rows = getRandomUsers(25);
 const Panel = props => {
 	const [selectedUser, setSelectedUser] = useState(null);
 
+	const getActionsColumn = useCallback(
+		() => ({
+			field: 'actions',
+			type: 'actions',
+			getActions: params => [
+				<GridActionsCellItem
+					icon={<VisibilityIcon />}
+					label='Podgląd'
+					onClick={() => setSelectedUser(params.id)}
+				/>,
+				<GridActionsCellItem icon={<DeleteIcon />} label='Usuń' />,
+			],
+			hideable: false,
+		}),
+		[]
+	);
+
 	useEffect(() => {
 		console.log(selectedUser);
 	}, [selectedUser]);
@@ -46,10 +66,9 @@ const Panel = props => {
 					/>
 				) : (
 					<CustomersTable
-						columns={columns}
+						columns={[getActionsColumn(), ...columns]}
 						rows={rows}
 						getRowId={row => row.lp}
-						onRowSelected={id => setSelectedUser(id)}
 					/>
 				)}
 			</Box>
