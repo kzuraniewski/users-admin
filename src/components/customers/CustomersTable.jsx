@@ -46,4 +46,4 @@ export default UsersTable;
 // TODO: Validation
 // TODO: User deletion
 // TODO: Actions
-// TODO: Columns hidden by default
+// TODO: Responsive columns
