@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import getRandomUsers from '../../testing/getRandomUsers.js';
 import CustomersTable from './CustomersTable.jsx';
+import CustomerEdit from './CustomerEdit.jsx';
 
 const columns = [
 	{ field: 'lp', headerName: 'LP', type: 'number' },
@@ -38,12 +39,19 @@ const Panel = props => {
 	return (
 		<>
 			<Box height='80vh' padding='45px 30px' {...props}>
-				<CustomersTable
-					columns={columns}
-					rows={rows}
-					getRowId={row => row.lp}
-					onRowSelected={id => setSelectedUser(id)}
-				/>
+				{selectedUser !== null ? (
+					<CustomerEdit
+						onSave={customerData => console.log(customerData)}
+						onReturn={() => setSelectedUser(null)}
+					/>
+				) : (
+					<CustomersTable
+						columns={columns}
+						rows={rows}
+						getRowId={row => row.lp}
+						onRowSelected={id => setSelectedUser(id)}
+					/>
+				)}
 			</Box>
 		</>
 	);
