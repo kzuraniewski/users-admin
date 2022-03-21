@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import getRandomUsers from '../../testing/getRandomUsers.js';
 import CustomersTable from './CustomersTable.jsx';
 
@@ -29,10 +29,21 @@ const columns = [
 const rows = getRandomUsers(25);
 
 const Panel = props => {
+	const [selectedUser, setSelectedUser] = useState(null);
+
+	useEffect(() => {
+		console.log(selectedUser);
+	}, [selectedUser]);
+
 	return (
 		<>
 			<Box height='80vh' padding='45px 30px' {...props}>
-				<CustomersTable columns={columns} rows={rows} getRowId={row => row.lp} />
+				<CustomersTable
+					columns={columns}
+					rows={rows}
+					getRowId={row => row.lp}
+					onRowSelected={id => setSelectedUser(id)}
+				/>
 			</Box>
 		</>
 	);
