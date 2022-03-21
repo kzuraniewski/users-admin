@@ -30,6 +30,7 @@ const Toolbar = () => {
  * @param {DataGridProps} props
  */
 const UsersTable = props => {
+	// TODO: Don't hide columns with `hideable: false`
 	const getVisibilityModel = useCallback(
 		/**
 		 * Hide all columns except given ones
