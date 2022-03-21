@@ -60,3 +60,4 @@ const Panel = props => {
 export default Panel;
 
 // TODO: Snackbars
+// FIXME: Opening user panel not through changing `selectedUser`
