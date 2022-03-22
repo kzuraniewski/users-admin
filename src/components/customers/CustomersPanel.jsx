@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { GridActionsCellItem } from '@mui/x-data-grid';
-// import getRandomUsers from '../../testing/getRandomUsers.js';
+import getRandomUsers from '../../testing/getRandomUsers.js';
 import CustomersTable from './CustomersTable.jsx';
 import CustomerEdit from './CustomerEdit.jsx';
 import DeleteCustomerModal from './DeleteCustomerModal.jsx';
@@ -32,8 +32,7 @@ const columns = [
 	{ field: 'rata2Slownie', headerName: 'Słownie', width: 220 },
 ];
 
-// const rows = getRandomUsers(25);
-const rows = new Array(25).fill({ lp: 'asd' });
+const rows = getRandomUsers(25);
 
 const defaultSnackbarState = {
 	label: '',
