@@ -26,6 +26,7 @@ const Toolbar = () => {
 };
 
 /**
+ * Displays customers info in a `DataGrid`
  * @typedef {import('@mui/x-data-grid').DataGridProps} DataGridProps
  * @param {DataGridProps} props
  */
