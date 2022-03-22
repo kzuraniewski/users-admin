@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDebug } from '../utility/hooks.js';
 import Button from '@mui/material/Button';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -9,8 +10,10 @@ import Box from '@mui/material/Box';
 import { Paper, TextField } from '@mui/material';
 import Horizontal from '../utility/Horizontal';
 
-const CustomerEdit = ({ onSave, onReturn }) => {
+const CustomerEdit = ({ data, onSave, onReturn }) => {
 	const [tabIndex, setTabIndex] = useState('1');
+
+	useDebug([data]);
 
 	return (
 		<Box>

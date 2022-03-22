@@ -6,6 +6,7 @@ import CustomerEdit from './CustomerEdit.jsx';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteCustomerModal from './DeleteCustomerModal.jsx';
 
 const columns = [
 	{ field: 'lp', headerName: 'LP', type: 'number' },
@@ -33,7 +34,9 @@ const columns = [
 const rows = getRandomUsers(25);
 
 const Panel = props => {
-	const [selectedUser, setSelectedUser] = useState(null);
+	const [selectedRow, setSelectedRow] = useState(0);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
+	const [showRowPanel, setShowRowPanel] = useState(false);
 
 	const getActionsColumn = useCallback(
 		() => ({
@@ -43,26 +46,47 @@ const Panel = props => {
 				<GridActionsCellItem
 					icon={<VisibilityIcon />}
 					label='Podgląd'
-					onClick={() => setSelectedUser(params.id)}
+					onClick={() => {
+						setSelectedRow(params.id);
+						setShowRowPanel(true);
+					}}
 				/>,
-				<GridActionsCellItem icon={<DeleteIcon />} label='Usuń' />,
+				<GridActionsCellItem
+					icon={<DeleteIcon />}
+					label='Usuń'
+					onClick={() => {
+						setSelectedRow(params.id);
+						setShowDeleteModal(true);
+					}}
+				/>,
 			],
 			hideable: false,
 		}),
 		[]
 	);
 
-	useEffect(() => {
-		console.log(selectedUser);
-	}, [selectedUser]);
-
 	return (
 		<>
 			<Box height='80vh' padding='45px 30px' {...props}>
-				{selectedUser !== null ? (
+				{showDeleteModal && (
+					<DeleteCustomerModal
+						open={showDeleteModal}
+						onCancel={() => setShowDeleteModal(false)}
+						onConfirm={() => {
+							console.log(`User #${selectedRow} deleted`);
+							setShowDeleteModal(false);
+							// TODO: Snackbars
+						}}
+					/>
+				)}
+
+				{showRowPanel ? (
 					<CustomerEdit
+						data={rows[selectedRow]}
 						onSave={customerData => console.log(customerData)}
-						onReturn={() => setSelectedUser(null)}
+						onReturn={() => {
+							setShowRowPanel(false);
+						}}
 					/>
 				) : (
 					<CustomersTable
@@ -78,6 +102,4 @@ const Panel = props => {
 
 export default Panel;
 
-// TODO: Snackbars
-// FIXME: Opening user panel not through changing `selectedUser`
 // TODO: Formatting values

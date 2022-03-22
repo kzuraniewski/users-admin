@@ -70,6 +70,4 @@ const UsersTable = props => {
 export default UsersTable;
 
 // TODO: Validation
-// TODO: User deletion
-// TODO: Actions
 // TODO: Responsive columns
