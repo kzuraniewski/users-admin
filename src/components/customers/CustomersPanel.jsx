@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import getRandomUsers from '../../testing/getRandomUsers.js';
 import CustomersTable from './CustomersTable.jsx';
@@ -7,6 +6,9 @@ import { GridActionsCellItem } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DeleteCustomerModal from './DeleteCustomerModal.jsx';
+import Snackbar from '../Snackbar.jsx';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 const columns = [
 	{ field: 'lp', headerName: 'LP', type: 'number' },
@@ -33,10 +35,23 @@ const columns = [
 
 const rows = getRandomUsers(25);
 
+const defaultSnackbarState = {
+	label: '',
+	open: false,
+	severity: 'success',
+};
+
 const Panel = props => {
 	const [selectedRow, setSelectedRow] = useState(0);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [showRowPanel, setShowRowPanel] = useState(false);
+	const [snackbarState, setSnackbarState] = useState(defaultSnackbarState);
+
+	const showSnackbar = (label, severity = snackbarState.severity) => {
+		setSnackbarState(snackbarState => ({ ...snackbarState, label, severity, open: true }));
+	};
+
+	const hideSnackbar = () => setSnackbarState(defaultSnackbarState);
 
 	const getActionsColumn = useCallback(
 		() => ({
@@ -68,6 +83,7 @@ const Panel = props => {
 	return (
 		<>
 			<Box height='80vh' padding='45px 30px' {...props}>
+				{/* Modal */}
 				{showDeleteModal && (
 					<DeleteCustomerModal
 						open={showDeleteModal}
@@ -75,15 +91,30 @@ const Panel = props => {
 						onConfirm={() => {
 							console.log(`User #${selectedRow} deleted`);
 							setShowDeleteModal(false);
-							// TODO: Snackbars
+							showSnackbar('Klient został usunięty');
 						}}
 					/>
 				)}
 
+				{/* Snackbars */}
+				<Snackbar
+					open={snackbarState.open}
+					label={snackbarState.label}
+					onClose={(e, reason) => {
+						if (reason === 'clickaway') return;
+						hideSnackbar();
+					}}
+					AlertProps={{ onClose: hideSnackbar }}
+				/>
+
+				{/* Panel content */}
 				{showRowPanel ? (
 					<CustomerEdit
 						data={rows[selectedRow]}
-						onSave={customerData => console.log(customerData)}
+						onSave={customerData => {
+							console.log(customerData);
+							showSnackbar('Zapisano');
+						}}
 						onReturn={() => {
 							setShowRowPanel(false);
 						}}
