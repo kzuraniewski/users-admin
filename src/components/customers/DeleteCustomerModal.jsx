@@ -1,4 +1,10 @@
-import { Button, Typography } from '@mui/material';
+import {
+	Button,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+} from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import React from 'react';
 
@@ -9,15 +15,19 @@ import React from 'react';
  */
 const DeleteCustomerModal = ({ onConfirm, onCancel, ...props }) => {
 	return (
-		<Dialog {...props}>
-			<Typography>Czy na pewno chcesz usunąć użytkownika?</Typography>
+		<Dialog onClose={() => onCancel()} {...props}>
+			<DialogTitle>Czy na pewno chcesz usunąć klienta?</DialogTitle>
 
-			<Button onClick={() => onCancel()} variant='outlined'>
-				Anuluj
-			</Button>
-			<Button onClick={() => onConfirm()} variant='contained'>
-				Usuń
-			</Button>
+			<DialogContent>
+				<DialogContentText>Ta czynność jest nieodwracalna</DialogContentText>
+			</DialogContent>
+
+			<DialogActions>
+				<Button onClick={() => onCancel()}>Anuluj</Button>
+				<Button onClick={() => onConfirm()} color='error'>
+					Usuń
+				</Button>
+			</DialogActions>
 		</Dialog>
 	);
 };
