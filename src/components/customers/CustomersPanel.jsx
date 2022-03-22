@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import getRandomUsers from '../../testing/getRandomUsers.js';
 import CustomersTable from './CustomersTable.jsx';
 import CustomerEdit from './CustomerEdit.jsx';
 import { GridActionsCellItem } from '@mui/x-data-grid';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DeleteCustomerModal from './DeleteCustomerModal.jsx';
 
@@ -44,8 +44,8 @@ const Panel = props => {
 			type: 'actions',
 			getActions: params => [
 				<GridActionsCellItem
-					icon={<VisibilityIcon />}
-					label='Podgląd'
+					icon={<EditIcon />}
+					label='Edytuj'
 					onClick={() => {
 						setSelectedRow(params.id);
 						setShowRowPanel(true);
