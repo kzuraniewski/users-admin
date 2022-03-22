@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDebug } from '../utility/hooks.js';
+import { useDebug } from '../../hooks.js';
 import Button from '@mui/material/Button';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
