@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
+import { Button, Tab, Typography, Box, Paper, TextField } from '@mui/material';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { useDebug } from '../../hooks.js';
-import Button from '@mui/material/Button';
-import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import { Paper, TextField } from '@mui/material';
 import Horizontal from '../utility/Horizontal';
 
 const CustomerEdit = ({ data, onSave, onReturn }) => {

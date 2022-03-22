@@ -1,12 +1,12 @@
+import React from 'react';
 import {
-	Button,
+	Dialog,
 	DialogActions,
 	DialogContent,
 	DialogContentText,
 	DialogTitle,
+	Button,
 } from '@mui/material';
-import Dialog from '@mui/material/Dialog';
-import React from 'react';
 
 /**
  * @typedef {import('@mui/material').DialogProps} DialogProps

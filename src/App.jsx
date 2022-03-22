@@ -1,11 +1,9 @@
 import React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider } from '@mui/material/styles';
+import theme from './theme.js';
+import { CssBaseline, ThemeProvider, Box } from '@mui/material';
 import Header from './components/Header';
 import Panel from './components/customers/CustomersPanel';
 import Sidenav from './components/Sidenav';
-import { Box } from '@mui/material';
-import theme from './theme.js';
 
 function App() {
 	return (

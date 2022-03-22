@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import ListItemButton from '@mui/material/ListItemButton';
-import Toolbar from '@mui/material/Toolbar';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItemText from '@mui/material/ListItemText';
+import {
+	Box,
+	ListItemButton,
+	Toolbar,
+	ListItemIcon,
+	Drawer,
+	List,
+	ListItemText,
+	// Divider,
+} from '@mui/material';
 import GroupIcon from '@mui/icons-material/Group';
-// import Divider from '@mui/material/Divider';
 
 const drawerWidth = 240;
 

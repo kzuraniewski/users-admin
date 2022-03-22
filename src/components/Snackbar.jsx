@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import MuiSnackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
+import React from 'react';
+import { Snackbar as MuiSnackbar, Alert } from '@mui/material';
 
 /**
  * @typedef {import('@mui/material').SnackbarProps} MuiSnackbarProps
