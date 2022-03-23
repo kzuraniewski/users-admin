@@ -1,13 +1,16 @@
 import React from 'react';
-import { AppBar, Button, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Button, Link, Toolbar } from '@mui/material';
+import logo from '../assets/logo.svg';
 
 const Header = () => {
 	return (
 		<AppBar position='sticky' sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}>
 			<Toolbar>
-				<Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-					Użytkownicy
-				</Typography>
+				<Box flex={1} sx={{ '& img': { height: '3.2rem' } }}>
+					<Link href='#'>
+						<img src={logo} alt='Logo' />
+					</Link>
+				</Box>
 
 				<Button
 					variant='text'
