@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Tab, Typography, Box, Paper, TextField } from '@mui/material';
+import { Button, Tab, Typography, Box, Paper, TextField, InputAdornment } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { useDebug } from '../../hooks.js';
 import Horizontal from '../utility/Horizontal';
@@ -53,12 +53,33 @@ const CustomerEdit = ({ data, onSave, onReturn }) => {
 							<TextField
 								label='Kwota całkowita'
 								type='number'
+								InputProps={{
+									endAdornment: (
+										<InputAdornment position='end'>zł</InputAdornment>
+									),
+								}}
 								sx={{ display: 'block' }}
 							/>
 
 							<Horizontal width={450}>
-								<TextField label='Rata 1' type='number' />
-								<TextField label='Rata 2' type='number' />
+								<TextField
+									label='Rata 1'
+									type='number'
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position='end'>zł</InputAdornment>
+										),
+									}}
+								/>
+								<TextField
+									label='Rata 2'
+									type='number'
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position='end'>zł</InputAdornment>
+										),
+									}}
+								/>
 							</Horizontal>
 						</TabPanel>
 					</form>
