@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Box } from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import CustomersTable from './CustomersTable.jsx';
 import CustomerEdit from './CustomerEdit.jsx';
 import { Route, Routes, useLocation } from 'react-router-dom';
@@ -47,7 +47,7 @@ const Customers = () => {
 				href={`${pathname}/${params.id}?edit=true`}
 			/>,
 			<GridActionsCellItem
-				icon={<DeleteIcon />}
+				icon={<VisibilityIcon />}
 				label='Usuń'
 				href={`${pathname}/${params.id}`}
 			/>,
