@@ -4,6 +4,7 @@ import { CssBaseline, ThemeProvider, Box } from '@mui/material';
 import Header from './components/Header';
 import Panel from './components/customers/CustomersPanel';
 import Sidenav from './components/Sidenav';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
 	return (
@@ -14,7 +15,10 @@ function App() {
 				<Box display='flex'>
 					<Sidenav />
 
-					<Panel sx={{ flex: '1' }} />
+					<Routes>
+						<Route path='/' element={<div>Strona główna</div>} />
+						<Route path='/klienci' element={<Panel sx={{ flex: '1' }} />} />
+					</Routes>
 				</Box>
 			</ThemeProvider>
 		</>
@@ -23,6 +27,5 @@ function App() {
 
 export default App;
 
-// TODO: Routing
 // TODO: Authorisation
 // FEATURE: Main panel with Masonry

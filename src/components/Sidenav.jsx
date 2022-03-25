@@ -1,42 +1,39 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
 	Box,
-	ListItemButton,
 	Toolbar,
 	ListItemIcon,
 	Drawer,
 	List,
 	ListItemText,
+	ListItemButton,
 	// Divider,
 } from '@mui/material';
 import GroupIcon from '@mui/icons-material/Group';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 
 const drawerWidth = 240;
 
-const Item = ({ icon, primary, ...props }) => {
-	return (
-		<ListItemButton {...props}>
-			<ListItemIcon>{icon}</ListItemIcon>
-			<ListItemText primary={primary} />
-		</ListItemButton>
+const ListItemLink = props => {
+	const { icon, primary, to } = props;
+	const location = useLocation();
+
+	const renderLink = React.useMemo(
+		() =>
+			React.forwardRef(function Link(itemProps, ref) {
+				return <RouterLink to={to} ref={ref} {...itemProps} role={undefined} />;
+			}),
+		[to]
 	);
-};
 
-/**
- * Makes every `Item` component inside selectable
- */
-const SelectionProvider = ({ children }) => {
-	const [selected, setSelected] = useState(0);
-
-	return React.Children.map(children, (child, index) => {
-		if (child.type !== Item) return child;
-
-		return React.cloneElement(child, {
-			key: index,
-			selected: selected === index,
-			onClick: () => setSelected(index),
-		});
-	});
+	return (
+		<li>
+			<ListItemButton component={renderLink} selected={location.pathname === to}>
+				{icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+				<ListItemText primary={primary} />
+			</ListItemButton>
+		</li>
+	);
 };
 
 const Sidenav = () => {
@@ -53,13 +50,9 @@ const Sidenav = () => {
 			<Toolbar />
 			<Box sx={{ overflow: 'auto' }}>
 				<List>
-					<SelectionProvider>
-						<Item icon={<GroupIcon />} primary='Klienci' />
-						{/* <Item icon={...} primary='...' /> */}
-						{/* ... */}
-						{/* <Divider /> */}
-						{/* ... */}
-					</SelectionProvider>
+					<ListItemLink icon={<GroupIcon />} primary='Klienci' to='/klienci' />
+					{/* <ListItemLink icon={...} primary='...' to='...' /> */}
+					{/* ... */}
 				</List>
 			</Box>
 		</Drawer>
