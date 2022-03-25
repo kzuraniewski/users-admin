@@ -2,9 +2,9 @@ import React from 'react';
 import theme from './theme.js';
 import { CssBaseline, ThemeProvider, Box } from '@mui/material';
 import Header from './components/Header';
-import Panel from './components/customers/CustomersPanel';
 import Sidenav from './components/Sidenav';
 import { Route, Routes } from 'react-router-dom';
+import Customers from './components/customers/Customers.jsx';
 
 function App() {
 	return (
@@ -17,7 +17,7 @@ function App() {
 
 					<Routes>
 						<Route path='/' element={<div>Strona główna</div>} />
-						<Route path='/klienci' element={<Panel sx={{ flex: '1' }} />} />
+						<Route path='/klienci/*' element={<Customers />} />
 					</Routes>
 				</Box>
 			</ThemeProvider>

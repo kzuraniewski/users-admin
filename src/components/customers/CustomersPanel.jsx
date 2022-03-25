@@ -3,11 +3,12 @@ import { Box } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { GridActionsCellItem } from '@mui/x-data-grid';
-import getRandomUsers from '../../testing/getRandomUsers.js';
 import CustomersTable from './CustomersTable.jsx';
 import CustomerEdit from './CustomerEdit.jsx';
 import DeleteCustomerModal from './DeleteCustomerModal.jsx';
 import Snackbar from '../Snackbar.jsx';
+import { Routes, useParams } from 'react-router-dom';
+import getRandomUsers from '../../testing/getRandomUsers.js';
 
 const columns = [
 	{ field: 'lp', headerName: 'LP', type: 'number' },
@@ -106,10 +107,12 @@ const Panel = props => {
 					AlertProps={{ onClose: hideSnackbar }}
 				/>
 
+				<Routes></Routes>
+
 				{/* Panel content */}
 				{showRowPanel ? (
 					<CustomerEdit
-						data={rows[selectedRow]}
+						data={rows[0]}
 						onSave={customerData => {
 							console.log(customerData);
 							showSnackbar('Zapisano');
