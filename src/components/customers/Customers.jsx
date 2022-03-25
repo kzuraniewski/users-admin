@@ -1,12 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Box } from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CustomersTable from './CustomersTable.jsx';
 import CustomerEdit from './CustomerEdit.jsx';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import getRandomUsers from '../../testing/getRandomUsers.js';
+import Snackbar from '../Snackbar.jsx';
 
 // Columns and rows will be fetched from db
 const columns = [
@@ -34,8 +35,20 @@ const columns = [
 
 const rows = getRandomUsers(25);
 
+const defaultSnackbarState = {
+	label: '',
+	open: false,
+	severity: 'success',
+};
+
 const Customers = () => {
-	const { pathname } = useLocation();
+	const [snackbarState, setSnackbarState] = useState(defaultSnackbarState);
+
+	const showSnackbar = (label = snackbarState.label, severity = snackbarState.severity) => {
+		setSnackbarState(snackbarState => ({ ...snackbarState, label, severity, open: true }));
+	};
+
+	const hideSnackbar = () => setSnackbarState(defaultSnackbarState);
 
 	const actionsColumn = useRef({
 		field: 'actions',
@@ -44,39 +57,57 @@ const Customers = () => {
 			<GridActionsCellItem
 				icon={<EditIcon />}
 				label='Edytuj'
-				href={`${pathname}/${params.id}?edit=true`}
+				href={`/klienci/${params.id}?edit=true`}
 			/>,
 			<GridActionsCellItem
 				icon={<VisibilityIcon />}
 				label='Usuń'
-				href={`${pathname}/${params.id}`}
+				href={`/klienci/${params.id}`}
 			/>,
 		],
 		hideable: false,
 	});
 
 	return (
-		<Box flex={1} height='80vh' padding='45px 30px'>
-			<Routes>
-				<Route
-					index
-					element={
-						<CustomersTable
-							columns={[actionsColumn.current, ...columns]}
-							rows={rows}
-							getRowId={row => row.lp}
-						/>
-					}
-				/>
-				<Route
-					path=':id'
-					element={
-						<CustomerEdit data={rows[0]} onSave={undefined} onReturn={undefined} />
-					}
-				/>
-			</Routes>
-		</Box>
+		<>
+			<Box flex={1} height='80vh' padding='45px 30px'>
+				<Routes>
+					<Route
+						index
+						element={
+							<CustomersTable
+								columns={[actionsColumn.current, ...columns]}
+								rows={rows}
+								getRowId={row => row.lp}
+							/>
+						}
+					/>
+					<Route
+						path=':id'
+						element={
+							<CustomerEdit
+								data={rows[0]}
+								onSave={() => showSnackbar('Zapisano')}
+								onReturn={undefined}
+							/>
+						}
+					/>
+				</Routes>
+			</Box>
+
+			<Snackbar
+				open={snackbarState.open}
+				label={snackbarState.label}
+				onClose={(e, reason) => {
+					if (reason === 'clickaway') return;
+					hideSnackbar();
+				}}
+				AlertProps={{ onClose: hideSnackbar }}
+			/>
+		</>
 	);
 };
 
 export default Customers;
+
+// FIXME: useLocation instead of magic words in path
