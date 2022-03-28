@@ -1,10 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { Box } from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
-import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CustomersTable from './CustomersTable.jsx';
-import CustomerEdit from './CustomerEdit.jsx';
+import CustomerPanel from './CustomerPanel.jsx';
 import { Route, Routes } from 'react-router-dom';
 import getRandomUsers from '../../testing/getRandomUsers.js';
 import Snackbar from '../Snackbar.jsx';
@@ -55,17 +54,13 @@ const Customers = () => {
 		type: 'actions',
 		getActions: params => [
 			<GridActionsCellItem
-				icon={<EditIcon />}
-				label='Edytuj'
-				href={`/klienci/${params.id}?edit=true`}
-			/>,
-			<GridActionsCellItem
 				icon={<VisibilityIcon />}
 				label='Usuń'
 				href={`/klienci/${params.id}`}
 			/>,
 		],
 		hideable: false,
+		width: 60,
 	});
 
 	return (
@@ -85,11 +80,7 @@ const Customers = () => {
 					<Route
 						path=':id'
 						element={
-							<CustomerEdit
-								data={rows[0]}
-								onSave={() => showSnackbar('Zapisano')}
-								onReturn={undefined}
-							/>
+							<CustomerPanel data={rows[0]} onSave={() => showSnackbar('Zapisano')} />
 						}
 					/>
 				</Routes>
