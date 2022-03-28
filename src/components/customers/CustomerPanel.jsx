@@ -4,6 +4,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
+// TODO: Better validation
 const validationSchema = yup.object({
 	lp: yup.number().required('To pole jest wymagane'),
 	data: yup.date(),
@@ -83,7 +84,13 @@ const CustomerPanel = ({ data, onSave }) => {
 					</Box>
 
 					{/* Form */}
-					<form onSubmit={formik.handleSubmit}>
+					<form
+						id='customer-form'
+						onSubmit={e => {
+							formik.handleSubmit(e);
+							setEditMode(false);
+						}}
+					>
 						<TabPanel value='1'>
 							{/* Ogólne */}
 							<HorizontalGroup>
@@ -162,11 +169,12 @@ const CustomerPanel = ({ data, onSave }) => {
 				<Box display='flex' justifyContent='flex-end' mt='auto'>
 					{editMode ? (
 						<Button
+							form='customer-form'
+							type='submit'
 							size='large'
 							variant='contained'
 							onClick={() => {
 								onSave(0);
-								setEditMode(false);
 							}}
 						>
 							Zapisz
