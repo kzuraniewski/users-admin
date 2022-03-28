@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Tab, Typography, Box, Paper, TextField, InputAdornment } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import Horizontal from '../utility/Horizontal';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
@@ -24,14 +23,7 @@ const validationSchema = yup.object({
 	rata2: yup.number(),
 });
 
-/**
- * @typedef {import('@mui/material').TextFieldProps} TextFieldProps
- * @typedef {TextFieldProps & {label: string; name: string; formik: object}} FieldProps
- * @param {FieldProps} props
- */
-const Field = ({ label, name, formik, ...props }) => {
-	// console.log(formik.touched);
-
+const Field = ({ label, name, formik, short = false, ...props }) => {
 	return (
 		<TextField
 			name={name}
@@ -42,8 +34,23 @@ const Field = ({ label, name, formik, ...props }) => {
 			helperText={formik.touched[name] && formik.errors[name] && 'Nieprawidłowa wartość'}
 			onBlur={() => formik.setTouched({ ...formik.touched, [name]: true })}
 			onFocus={() => formik.setTouched({ ...formik.touched, [name]: false })}
+			fullWidth={!short}
 			{...props}
 		/>
+	);
+};
+
+const HorizontalGroup = ({ children, ...props }) => {
+	return (
+		<Box
+			display='flex'
+			justifyContent='space-between'
+			width='100%'
+			sx={{ '& > *': { flex: 1, '&:not(:last-child)': { pr: 5 } } }}
+			{...props}
+		>
+			{children}
+		</Box>
 	);
 };
 
@@ -79,13 +86,19 @@ const CustomerPanel = ({ data, onSave }) => {
 					<form onSubmit={formik.handleSubmit}>
 						<TabPanel value='1'>
 							{/* Ogólne */}
-							<Field label='LP' name='lp' disabled formik={formik} />
-							<Field label='Data' name='data' formik={formik} />
-							<Field label='Adres strony' name='url' formik={formik} />
+							<HorizontalGroup>
+								<div>
+									<Field label='LP' name='lp' disabled formik={formik} />
+									<Field label='Data' name='data' formik={formik} />
+									<Field label='Adres strony' name='url' formik={formik} />
+								</div>
+
+								<div />
+							</HorizontalGroup>
 						</TabPanel>
 						<TabPanel value='2'>
 							{/* Dane kontaktowe */}
-							<Horizontal width={450}>
+							<HorizontalGroup>
 								<div>
 									<Field label='Nazwa firmy' name='firma' formik={formik} />
 									<Field label='Adres firmy' name='adres' formik={formik} />
@@ -101,22 +114,26 @@ const CustomerPanel = ({ data, onSave }) => {
 									<Field label='E-mail' name='email' formik={formik} />
 									<Field label='Telefon' name='telefon' formik={formik} />
 								</div>
-							</Horizontal>
+							</HorizontalGroup>
 						</TabPanel>
 
 						<TabPanel value='3'>
-							<Field
-								label='Kwota całkowita'
-								name='calkowita'
-								formik={formik}
-								InputProps={{
-									endAdornment: (
-										<InputAdornment position='end'>zł</InputAdornment>
-									),
-								}}
-							/>
+							<HorizontalGroup>
+								<Field
+									label='Kwota całkowita'
+									name='calkowita'
+									formik={formik}
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position='end'>zł</InputAdornment>
+										),
+									}}
+								/>
 
-							<Horizontal width={450}>
+								<div />
+							</HorizontalGroup>
+
+							<HorizontalGroup>
 								<Field
 									label='Rata 1'
 									name='rata1'
@@ -137,7 +154,7 @@ const CustomerPanel = ({ data, onSave }) => {
 										),
 									}}
 								/>
-							</Horizontal>
+							</HorizontalGroup>
 						</TabPanel>
 					</form>
 				</TabContext>
