@@ -78,7 +78,9 @@ const Customers = () => {
 					/>
 					<Route
 						path=':id'
-						element={<CustomerPanel data={rows[0]} onSave={() => showSnackbar()} />}
+						element={
+							<CustomerPanel data={rows[0]} onSave={() => showSnackbar('Zapisano')} />
+						}
 					/>
 				</Routes>
 			</Box>
