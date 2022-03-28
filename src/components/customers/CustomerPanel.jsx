@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, Tab, Typography, Box, Paper, TextField } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import Horizontal from '../utility/Horizontal';
@@ -12,7 +12,7 @@ const validationSchema = yup.object({
 	firma: yup.string(),
 	nip: yup
 		.number()
-		.integer()
+		.integer('Numer NIP jest nieprawidłowy')
 		.min(1_000_000_000, 'Numer NIP jest nieprawidłowy')
 		.max(9_999_999_999, 'Numer NIP jest nieprawidłowy'),
 	adres: yup.string(),
@@ -24,17 +24,19 @@ const validationSchema = yup.object({
 	rata2: yup.number(),
 });
 
-const Field = (
-	{ label, name, formik: { values, touched, errors, handleChange }, ...props } = null
-) => {
+const Field = ({ label, name, formik, ...props } = null) => {
+	// console.log(formik.touched);
+
 	return (
 		<TextField
 			name={name}
 			label={label}
-			value={values[name]}
-			onChange={handleChange}
-			error={touched[name] && Boolean(errors[name])}
-			helperText={touched[name] && errors[name]}
+			value={formik.values[name]}
+			onChange={formik.handleChange}
+			error={Boolean(formik.touched[name] && formik.errors[name])}
+			helperText={formik.touched[name] && formik.errors[name] && 'Nieprawidłowa wartość'}
+			onBlur={() => formik.setTouched({ ...formik.touched, [name]: true })}
+			onFocus={() => formik.setTouched({ ...formik.touched, [name]: false })}
 			{...props}
 		/>
 	);
