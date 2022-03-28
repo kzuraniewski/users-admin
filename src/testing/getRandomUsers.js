@@ -17,6 +17,7 @@ const getRandomUsers = n =>
 		return {
 			lp: index,
 			data: faker.date.past().toISOString().slice(0, 10),
+			url: faker.internet.domainName(),
 			nrUmowy: `${faker.datatype.number({ min: 10, max: 99 })}/${faker.datatype.number({
 				min: 10,
 				max: 99,
@@ -26,7 +27,7 @@ const getRandomUsers = n =>
 			adres: faker.address.secondaryAddress(),
 			nip: Math.floor(Math.random() * 10_000_000_000),
 			telefon: faker.phone.phoneNumber('+48 #########'),
-			mail: faker.internet.email(name, lastName),
+			email: faker.internet.email(name, lastName),
 			calkowita: fullPrice,
 			rata1: rate1,
 			rata2: rate2,
