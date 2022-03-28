@@ -21,7 +21,7 @@ export default createTheme(plPL, plPLDataGrid, {
 		MuiTextField: {
 			defaultProps: {
 				variant: 'standard',
-				margin: 'dense',
+				margin: 'normal',
 				sx: {
 					display: 'block',
 				},
