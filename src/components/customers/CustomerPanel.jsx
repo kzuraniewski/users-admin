@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Tab, Typography, Box, Paper, TextField } from '@mui/material';
+import { Button, Tab, Typography, Box, Paper, TextField, InputAdornment } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import Horizontal from '../utility/Horizontal';
 import { useFormik } from 'formik';
@@ -24,7 +24,12 @@ const validationSchema = yup.object({
 	rata2: yup.number(),
 });
 
-const Field = ({ label, name, formik, ...props } = null) => {
+/**
+ * @typedef {import('@mui/material').TextFieldProps} TextFieldProps
+ * @typedef {TextFieldProps & {label: string; name: string; formik: object}} FieldProps
+ * @param {FieldProps} props
+ */
+const Field = ({ label, name, formik, ...props }) => {
 	// console.log(formik.touched);
 
 	return (
@@ -100,11 +105,38 @@ const CustomerPanel = ({ data, onSave }) => {
 						</TabPanel>
 
 						<TabPanel value='3'>
-							<Field label='Kwota całkowita' name='calkowita' formik={formik} />
+							<Field
+								label='Kwota całkowita'
+								name='calkowita'
+								formik={formik}
+								InputProps={{
+									endAdornment: (
+										<InputAdornment position='end'>zł</InputAdornment>
+									),
+								}}
+							/>
 
 							<Horizontal width={450}>
-								<Field label='Rata 1' name='rata1' formik={formik} />
-								<Field label='Rata 2' name='rata2' formik={formik} />
+								<Field
+									label='Rata 1'
+									name='rata1'
+									formik={formik}
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position='end'>zł</InputAdornment>
+										),
+									}}
+								/>
+								<Field
+									label='Rata 2'
+									name='rata2'
+									formik={formik}
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position='end'>zł</InputAdornment>
+										),
+									}}
+								/>
 							</Horizontal>
 						</TabPanel>
 					</form>
