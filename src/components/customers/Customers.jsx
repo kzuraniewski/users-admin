@@ -32,7 +32,7 @@ const columns = [
 	{ field: 'rata2Slownie', headerName: 'Słownie', width: 220 },
 ];
 
-const rows = getRandomUsers(25);
+const rows = getRandomUsers(50);
 
 const defaultSnackbarState = {
 	label: '',
@@ -42,26 +42,25 @@ const defaultSnackbarState = {
 
 const Customers = () => {
 	const [snackbarState, setSnackbarState] = useState(defaultSnackbarState);
-
-	const showSnackbar = (label = snackbarState.label, severity = snackbarState.severity) => {
-		setSnackbarState(snackbarState => ({ ...snackbarState, label, severity, open: true }));
-	};
-
-	const hideSnackbar = () => setSnackbarState(defaultSnackbarState);
-
 	const actionsColumn = useRef({
 		field: 'actions',
 		type: 'actions',
 		getActions: params => [
 			<GridActionsCellItem
 				icon={<VisibilityIcon />}
-				label='Usuń'
+				label='Podgląd'
 				href={`/klienci/${params.id}`}
 			/>,
 		],
 		hideable: false,
 		width: 60,
 	});
+
+	const showSnackbar = (label = snackbarState.label, severity = snackbarState.severity) => {
+		setSnackbarState(snackbarState => ({ ...snackbarState, label, severity, open: true }));
+	};
+
+	const hideSnackbar = () => setSnackbarState(defaultSnackbarState);
 
 	return (
 		<>
@@ -79,9 +78,7 @@ const Customers = () => {
 					/>
 					<Route
 						path=':id'
-						element={
-							<CustomerPanel data={rows[0]} onSave={() => showSnackbar('Zapisano')} />
-						}
+						element={<CustomerPanel data={rows[0]} onSave={() => showSnackbar()} />}
 					/>
 				</Routes>
 			</Box>

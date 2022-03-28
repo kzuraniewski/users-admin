@@ -1,61 +1,42 @@
-import React, { useState } from 'react';
-import { Button, Tab, Typography, Box, Paper, TextField, InputAdornment } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Button, Tab, Typography, Box, Paper, TextField } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { useDebug } from '../../hooks.js';
 import Horizontal from '../utility/Horizontal';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 
-const Form = () => {
+const validationSchema = yup.object({
+	lp: yup.number().required('To pole jest wymagane'),
+	data: yup.date(),
+	nrUmowy: yup.string(),
+	firma: yup.string(),
+	nip: yup
+		.number()
+		.integer()
+		.min(1_000_000_000, 'Numer NIP jest nieprawidłowy')
+		.max(9_999_999_999, 'Numer NIP jest nieprawidłowy'),
+	adres: yup.string(),
+	reprezentant: yup.string(),
+	telefon: yup.string(),
+	email: yup.string().email('Adres email jest nieprawidłowy'),
+	calkowita: yup.number().required('To pole jest wymagane'),
+	rata1: yup.number(),
+	rata2: yup.number(),
+});
+
+const Field = (
+	{ label, name, formik: { values, touched, errors, handleChange }, ...props } = null
+) => {
 	return (
-		<form>
-			<TabPanel value='1'>
-				{/* Ogólne */}
-				<TextField label='LP' disabled />
-				<TextField label='Data' />
-				<TextField label='Adres strony' />
-			</TabPanel>
-			<TabPanel value='2'>
-				{/* Dane kontaktowe */}
-				<Horizontal width={450}>
-					<div>
-						<TextField label='Nazwa firmy' />
-						<TextField label='Adres firmy' />
-						<TextField label='NIP' type='number' />
-					</div>
-					<div>
-						<TextField label='Reprezentant' />
-						<TextField label='E-mail' type='email' />
-						<TextField label='Telefon' type='phone' />
-					</div>
-				</Horizontal>
-			</TabPanel>
-			<TabPanel value='3'>
-				<TextField
-					label='Kwota całkowita'
-					type='number'
-					InputProps={{
-						endAdornment: <InputAdornment position='end'>zł</InputAdornment>,
-					}}
-					sx={{ display: 'block' }}
-				/>
-
-				<Horizontal width={450}>
-					<TextField
-						label='Rata 1'
-						type='number'
-						InputProps={{
-							endAdornment: <InputAdornment position='end'>zł</InputAdornment>,
-						}}
-					/>
-					<TextField
-						label='Rata 2'
-						type='number'
-						InputProps={{
-							endAdornment: <InputAdornment position='end'>zł</InputAdornment>,
-						}}
-					/>
-				</Horizontal>
-			</TabPanel>
-		</form>
+		<TextField
+			name={name}
+			label={label}
+			value={values[name]}
+			onChange={handleChange}
+			error={touched[name] && Boolean(errors[name])}
+			helperText={touched[name] && errors[name]}
+			{...props}
+		/>
 	);
 };
 
@@ -63,7 +44,11 @@ const CustomerPanel = ({ data, onSave }) => {
 	const [tabIndex, setTabIndex] = useState('1');
 	const [editMode, setEditMode] = useState(false);
 
-	useDebug([data]);
+	const formik = useFormik({
+		initialValues: data,
+		validationSchema,
+		onSubmit: onSave,
+	});
 
 	return (
 		<Box>
@@ -83,7 +68,44 @@ const CustomerPanel = ({ data, onSave }) => {
 						</TabList>
 					</Box>
 
-					{editMode ? <Form /> : <div>info</div>}
+					{/* Form */}
+					<form onSubmit={formik.handleSubmit}>
+						<TabPanel value='1'>
+							{/* Ogólne */}
+							<Field label='LP' name='lp' disabled formik={formik} />
+							<Field label='Data' name='data' formik={formik} />
+							<Field label='Adres strony' name='url' formik={formik} />
+						</TabPanel>
+						<TabPanel value='2'>
+							{/* Dane kontaktowe */}
+							<Horizontal width={450}>
+								<div>
+									<Field label='Nazwa firmy' name='firma' formik={formik} />
+									<Field label='Adres firmy' name='adres' formik={formik} />
+									<Field label='NIP' name='nip' formik={formik} />
+								</div>
+
+								<div>
+									<Field
+										label='Reprezentant'
+										name='reprezentant'
+										formik={formik}
+									/>
+									<Field label='E-mail' name='email' formik={formik} />
+									<Field label='Telefon' name='telefon' formik={formik} />
+								</div>
+							</Horizontal>
+						</TabPanel>
+
+						<TabPanel value='3'>
+							<Field label='Kwota całkowita' name='calkowita' formik={formik} />
+
+							<Horizontal width={450}>
+								<Field label='Rata 1' name='rata1' formik={formik} />
+								<Field label='Rata 2' name='rata2' formik={formik} />
+							</Horizontal>
+						</TabPanel>
+					</form>
 				</TabContext>
 
 				<Box display='flex' justifyContent='flex-end' mt='auto'>
