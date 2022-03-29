@@ -4,6 +4,7 @@ import { DeleteForever as DeleteForeverIcon } from '@mui/icons-material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { EditableForm, EditableField, HorizontalGroup, EditToggle } from '../editable-form';
 import * as yup from 'yup';
+import DeleteCustomerModal from './DeleteCustomerModal';
 
 // TODO: Better validation
 const validationSchema = yup.object({
@@ -28,9 +29,21 @@ const validationSchema = yup.object({
 const CustomerPanel = ({ data, onSave }) => {
 	const [tabIndex, setTabIndex] = useState('1');
 	const [editMode, setEditMode] = useState(false);
+	const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
 	return (
 		<Box>
+			<DeleteCustomerModal
+				open={openDeleteModal}
+				onConfirm={() => {
+					// showSna
+					setOpenDeleteModal(false);
+				}}
+				onCancel={() => {
+					setOpenDeleteModal(false);
+				}}
+			/>
+
 			<Box display='flex'>
 				<Typography variant='h4' component='h1' sx={{ flex: 1 }}>
 					Panel klienta
@@ -43,7 +56,7 @@ const CustomerPanel = ({ data, onSave }) => {
 						onDisable={() => setEditMode(false)}
 					/>
 
-					<IconButton color='error'>
+					<IconButton color='error' onClick={() => setOpenDeleteModal(true)}>
 						<DeleteForeverIcon />
 					</IconButton>
 				</div>
