@@ -57,9 +57,9 @@ const UsersTable = props => {
 					columnVisibilityModel: getVisibilityModel([
 						'actions',
 						'data',
+						'url',
 						'firma',
 						'reprezentant',
-						'telefon',
 					]),
 				},
 			}}

@@ -17,7 +17,8 @@ const getRandomUsers = n =>
 		return {
 			lp: index,
 			data: faker.date.past().toISOString().slice(0, 10),
-			url: faker.internet.domainName(),
+			url: faker.internet.url(),
+			serwer: faker.internet.url(),
 			nrUmowy: `${faker.datatype.number({ min: 10, max: 99 })}/${faker.datatype.number({
 				min: 10,
 				max: 99,

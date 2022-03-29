@@ -62,11 +62,15 @@ const CustomerPanel = ({ data, onSave }) => {
 							<HorizontalGroup>
 								<div>
 									<EditableField label='LP' name='lp' disabled />
-									<EditableField label='Data' name='data' />
-									<EditableField label='Adres strony' name='url' />
+									<EditableField label='Data podpisania umowy' name='data' />
 								</div>
 
 								<div />
+							</HorizontalGroup>
+
+							<HorizontalGroup>
+								<EditableField label='Adres strony' name='url' />
+								<EditableField label='Serwer strony' name='server' />
 							</HorizontalGroup>
 						</TabPanel>
 

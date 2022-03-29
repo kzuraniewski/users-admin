@@ -12,10 +12,12 @@ import Snackbar from '../Snackbar.jsx';
 const columns = [
 	{ field: 'lp', headerName: 'LP', type: 'number' },
 	{ field: 'data', headerName: 'Data' },
+	{ field: 'url', headerName: 'Adres strony', width: 300 },
+	{ field: 'serwer', headerName: 'Serwer', width: 300 },
 	{ field: 'nrUmowy', headerName: 'Nr umowy', width: 120 },
 	{ field: 'firma', headerName: 'Firma', width: 350 },
 	{ field: 'nip', headerName: 'NIP', width: 120 },
-	{ field: 'adres', headerName: 'Adres', width: 300 },
+	{ field: 'adres', headerName: 'Adres firmy', width: 300 },
 	{ field: 'reprezentant', headerName: 'Reprezentant', width: 170 },
 	{ field: 'telefon', headerName: 'Telefon', width: 150 },
 	{ field: 'email', headerName: 'E-mail', width: 200 },
