@@ -50,9 +50,10 @@ const Field = ({ label, name, short = false, money = false, ...props }) => {
 						onFocus={() => formik.setTouched({ ...formik.touched, [name]: false })}
 						fullWidth={!short}
 						InputProps={
-							money && {
-								endAdornment: <InputAdornment position='end'>zł</InputAdornment>,
-							}
+							//prettier-ignore
+							money ? 
+								{ endAdornment: <InputAdornment position='end'>zł</InputAdornment> }
+								: null
 						}
 						{...props}
 					/>
