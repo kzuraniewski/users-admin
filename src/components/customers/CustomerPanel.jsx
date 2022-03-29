@@ -24,20 +24,50 @@ const validationSchema = yup.object({
 	rata2: yup.number(),
 });
 
-const Field = ({ label, name, formik, short = false, ...props }) => {
+const DisplayContext = React.createContext(null);
+
+const Field = ({ label, name, short = false, money = false, ...props }) => {
 	return (
-		<TextField
-			name={name}
-			label={label}
-			value={formik.values[name]}
-			onChange={formik.handleChange}
-			error={Boolean(formik.touched[name] && formik.errors[name])}
-			helperText={formik.touched[name] && formik.errors[name] && 'Nieprawidłowa wartość'}
-			onBlur={() => formik.setTouched({ ...formik.touched, [name]: true })}
-			onFocus={() => formik.setTouched({ ...formik.touched, [name]: false })}
-			fullWidth={!short}
-			{...props}
-		/>
+		<DisplayContext.Consumer>
+			{({ editMode, formik }) =>
+				editMode ? (
+					<TextField
+						name={name}
+						label={label}
+						value={
+							formik.values[name].toString().length
+								? formik.values[name]
+								: editMode
+								? ' '
+								: ''
+						}
+						onChange={formik.handleChange}
+						error={Boolean(formik.touched[name] && formik.errors[name])}
+						helperText={
+							formik.touched[name] && formik.errors[name] && 'Nieprawidłowa wartość'
+						}
+						onBlur={() => formik.setTouched({ ...formik.touched, [name]: true })}
+						onFocus={() => formik.setTouched({ ...formik.touched, [name]: false })}
+						fullWidth={!short}
+						InputProps={
+							money && {
+								endAdornment: <InputAdornment position='end'>zł</InputAdornment>,
+							}
+						}
+						{...props}
+					/>
+				) : (
+					<Box mb={1} mt={2}>
+						<Typography variant='caption' color={'rgba(0, 0, 0, 0.6)'}>
+							{label}
+						</Typography>
+						<Typography variant='body2' sx={{ mt: 0.5, fontSize: '1rem' }}>
+							{`${formik.values[name]}${money ? ' zł' : ''}` ?? '[Brak]'}
+						</Typography>
+					</Box>
+				)
+			}
+		</DisplayContext.Consumer>
 	);
 };
 
@@ -84,86 +114,56 @@ const CustomerPanel = ({ data, onSave }) => {
 					</Box>
 
 					{/* Form */}
-					<form
-						id='customer-form'
-						onSubmit={e => {
-							formik.handleSubmit(e);
-							setEditMode(false);
-						}}
-					>
-						<TabPanel value='1'>
-							{/* Ogólne */}
-							<HorizontalGroup>
-								<div>
-									<Field label='LP' name='lp' disabled formik={formik} />
-									<Field label='Data' name='data' formik={formik} />
-									<Field label='Adres strony' name='url' formik={formik} />
-								</div>
+					<DisplayContext.Provider value={{ formik, editMode }}>
+						<form
+							id='customer-form'
+							onSubmit={e => {
+								formik.handleSubmit(e);
+							}}
+						>
+							<TabPanel value='1'>
+								{/* Ogólne */}
+								<HorizontalGroup>
+									<div>
+										<Field label='LP' name='lp' disabled />
+										<Field label='Data' name='data' />
+										<Field label='Adres strony' name='url' />
+									</div>
 
-								<div />
-							</HorizontalGroup>
-						</TabPanel>
-						<TabPanel value='2'>
-							{/* Dane kontaktowe */}
-							<HorizontalGroup>
-								<div>
-									<Field label='Nazwa firmy' name='firma' formik={formik} />
-									<Field label='Adres firmy' name='adres' formik={formik} />
-									<Field label='NIP' name='nip' formik={formik} />
-								</div>
+									<div />
+								</HorizontalGroup>
+							</TabPanel>
+							<TabPanel value='2'>
+								{/* Dane kontaktowe */}
+								<HorizontalGroup>
+									<div>
+										<Field label='Nazwa firmy' name='firma' />
+										<Field label='Adres firmy' name='adres' />
+										<Field label='NIP' name='nip' />
+									</div>
 
-								<div>
-									<Field
-										label='Reprezentant'
-										name='reprezentant'
-										formik={formik}
-									/>
-									<Field label='E-mail' name='email' formik={formik} />
-									<Field label='Telefon' name='telefon' formik={formik} />
-								</div>
-							</HorizontalGroup>
-						</TabPanel>
+									<div>
+										<Field label='Reprezentant' name='reprezentant' />
+										<Field label='E-mail' name='email' />
+										<Field label='Telefon' name='telefon' />
+									</div>
+								</HorizontalGroup>
+							</TabPanel>
 
-						<TabPanel value='3'>
-							<HorizontalGroup>
-								<Field
-									label='Kwota całkowita'
-									name='calkowita'
-									formik={formik}
-									InputProps={{
-										endAdornment: (
-											<InputAdornment position='end'>zł</InputAdornment>
-										),
-									}}
-								/>
+							<TabPanel value='3'>
+								<HorizontalGroup>
+									<Field label='Kwota całkowita' name='calkowita' money />
 
-								<div />
-							</HorizontalGroup>
+									<div />
+								</HorizontalGroup>
 
-							<HorizontalGroup>
-								<Field
-									label='Rata 1'
-									name='rata1'
-									formik={formik}
-									InputProps={{
-										endAdornment: (
-											<InputAdornment position='end'>zł</InputAdornment>
-										),
-									}}
-								/>
-								<Field
-									label='Rata 2'
-									name='rata2'
-									formik={formik}
-									InputProps={{
-										endAdornment: (
-											<InputAdornment position='end'>zł</InputAdornment>
-										),
-									}}
-								/>
-							</HorizontalGroup>
-						</TabPanel>
-					</form>
+								<HorizontalGroup>
+									<Field label='Rata 1' name='rata1' money />
+									<Field label='Rata 2' name='rata2' money />
+								</HorizontalGroup>
+							</TabPanel>
+						</form>
+					</DisplayContext.Provider>
 				</TabContext>
 
 				<Box display='flex' justifyContent='flex-end' mt='auto'>
@@ -175,6 +175,7 @@ const CustomerPanel = ({ data, onSave }) => {
 							variant='contained'
 							onClick={() => {
 								onSave(0);
+								setEditMode(false);
 							}}
 						>
 							Zapisz
