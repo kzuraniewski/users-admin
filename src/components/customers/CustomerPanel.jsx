@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Tab, Typography, Box, Paper } from '@mui/material';
+import { Button, Tab, Typography, Box, Paper, IconButton } from '@mui/material';
+import { DeleteForever as DeleteForeverIcon } from '@mui/icons-material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { EditableForm, EditableField, HorizontalGroup } from '../editable-form';
+import { EditableForm, EditableField, HorizontalGroup, EditToggle } from '../editable-form';
 import * as yup from 'yup';
 
 // TODO: Better validation
@@ -30,9 +31,23 @@ const CustomerPanel = ({ data, onSave }) => {
 
 	return (
 		<Box>
-			<Typography variant='h4' component='h1'>
-				Panel klienta
-			</Typography>
+			<Box display='flex'>
+				<Typography variant='h4' component='h1' sx={{ flex: 1 }}>
+					Panel klienta
+				</Typography>
+
+				<div>
+					<EditToggle
+						editMode={editMode}
+						onEnable={() => setEditMode(true)}
+						onDisable={() => setEditMode(false)}
+					/>
+
+					<IconButton color='error'>
+						<DeleteForeverIcon />
+					</IconButton>
+				</div>
+			</Box>
 
 			<Paper
 				sx={{ padding: 3, mt: 2, minHeight: 400, display: 'flex', flexDirection: 'column' }}
@@ -107,7 +122,7 @@ const CustomerPanel = ({ data, onSave }) => {
 				</TabContext>
 
 				<Box display='flex' justifyContent='flex-end' mt='auto'>
-					{editMode ? (
+					{editMode && (
 						<Button
 							form='customer-form'
 							type='submit'
@@ -119,10 +134,6 @@ const CustomerPanel = ({ data, onSave }) => {
 							}}
 						>
 							Zapisz
-						</Button>
-					) : (
-						<Button size='large' variant='outlined' onClick={() => setEditMode(true)}>
-							Edytuj
 						</Button>
 					)}
 				</Box>
