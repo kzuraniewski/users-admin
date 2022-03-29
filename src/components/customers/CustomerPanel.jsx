@@ -5,6 +5,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { EditableForm, EditableField, HorizontalGroup, EditToggle } from '../editable-form';
 import * as yup from 'yup';
 import DeleteCustomerModal from './DeleteCustomerModal';
+import Snackbar from '../Snackbar';
 
 // TODO: Better validation
 const validationSchema = yup.object({
@@ -26,17 +27,40 @@ const validationSchema = yup.object({
 	rata2: yup.number(),
 });
 
-const CustomerPanel = ({ data, onSave }) => {
+const defaultSnackbarState = {
+	label: '',
+	open: false,
+	severity: 'success',
+};
+
+const CustomerPanel = ({ data }) => {
 	const [tabIndex, setTabIndex] = useState('1');
 	const [editMode, setEditMode] = useState(false);
+	const [snackbarState, setSnackbarState] = useState(defaultSnackbarState);
 	const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+	const showSnackbar = (label = snackbarState.label, severity = snackbarState.severity) => {
+		setSnackbarState(snackbarState => ({ ...snackbarState, label, severity, open: true }));
+	};
+
+	const hideSnackbar = () => setSnackbarState(defaultSnackbarState);
 
 	return (
 		<Box>
+			<Snackbar
+				open={snackbarState.open}
+				label={snackbarState.label}
+				onClose={(e, reason) => {
+					if (reason === 'clickaway') return;
+					hideSnackbar();
+				}}
+				AlertProps={{ onClose: hideSnackbar }}
+			/>
+
 			<DeleteCustomerModal
 				open={openDeleteModal}
 				onConfirm={() => {
-					// showSna
+					showSnackbar('Klient został usunięty');
 					setOpenDeleteModal(false);
 				}}
 				onCancel={() => {
@@ -142,7 +166,6 @@ const CustomerPanel = ({ data, onSave }) => {
 							size='large'
 							variant='contained'
 							onClick={() => {
-								onSave(0);
 								setEditMode(false);
 							}}
 						>

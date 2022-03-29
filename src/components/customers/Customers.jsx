@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Box } from '@mui/material';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -6,7 +6,6 @@ import CustomersTable from './CustomersTable.jsx';
 import CustomerPanel from './CustomerPanel.jsx';
 import { Route, Routes } from 'react-router-dom';
 import getRandomUsers from '../../testing/getRandomUsers.js';
-import Snackbar from '../Snackbar.jsx';
 
 // Columns and rows will be fetched from db
 const columns = [
@@ -36,14 +35,7 @@ const columns = [
 
 const rows = getRandomUsers(50);
 
-const defaultSnackbarState = {
-	label: '',
-	open: false,
-	severity: 'success',
-};
-
 const Customers = () => {
-	const [snackbarState, setSnackbarState] = useState(defaultSnackbarState);
 	const actionsColumn = useRef({
 		field: 'actions',
 		type: 'actions',
@@ -58,45 +50,22 @@ const Customers = () => {
 		width: 60,
 	});
 
-	const showSnackbar = (label = snackbarState.label, severity = snackbarState.severity) => {
-		setSnackbarState(snackbarState => ({ ...snackbarState, label, severity, open: true }));
-	};
-
-	const hideSnackbar = () => setSnackbarState(defaultSnackbarState);
-
 	return (
-		<>
-			<Box flex={1} height='80vh' padding='45px 30px'>
-				<Routes>
-					<Route
-						index
-						element={
-							<CustomersTable
-								columns={[actionsColumn.current, ...columns]}
-								rows={rows}
-								getRowId={row => row.lp}
-							/>
-						}
-					/>
-					<Route
-						path=':id'
-						element={
-							<CustomerPanel data={rows[0]} onSave={() => showSnackbar('Zapisano')} />
-						}
-					/>
-				</Routes>
-			</Box>
-
-			<Snackbar
-				open={snackbarState.open}
-				label={snackbarState.label}
-				onClose={(e, reason) => {
-					if (reason === 'clickaway') return;
-					hideSnackbar();
-				}}
-				AlertProps={{ onClose: hideSnackbar }}
-			/>
-		</>
+		<Box flex={1} height='80vh' padding='45px 30px'>
+			<Routes>
+				<Route
+					index
+					element={
+						<CustomersTable
+							columns={[actionsColumn.current, ...columns]}
+							rows={rows}
+							getRowId={row => row.lp}
+						/>
+					}
+				/>
+				<Route path=':id' element={<CustomerPanel data={rows[0]} />} />
+			</Routes>
+		</Box>
 	);
 };
 
