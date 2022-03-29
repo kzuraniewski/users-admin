@@ -166,6 +166,7 @@ const CustomerPanel = ({ data }) => {
 							size='large'
 							variant='contained'
 							onClick={() => {
+								showSnackbar('Zapisano');
 								setEditMode(false);
 							}}
 						>
