@@ -3,8 +3,8 @@ import { Box, InputAdornment, TextField, Typography } from '@mui/material';
 import { FormContext } from './EditableForm.jsx';
 
 const EditableField = ({ label, name, short = false, money = false, ...props }) => {
-	const fixedValue = (value, replacer = '', after = '') =>
-		value?.toString().length ? `${value} ${after}` : replacer;
+	const fixedValue = (value, replacer = '', after = null) =>
+		value?.toString().length ? value + (after ? ` ${after}` : '') : replacer;
 
 	return (
 		<FormContext.Consumer>
