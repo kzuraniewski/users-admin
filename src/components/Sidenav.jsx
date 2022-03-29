@@ -28,7 +28,10 @@ const ListItemLink = props => {
 
 	return (
 		<li>
-			<ListItemButton component={renderLink} selected={location.pathname === to}>
+			<ListItemButton
+				component={renderLink}
+				selected={location.pathname.slice(0, to.length) === to}
+			>
 				{icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
 				<ListItemText primary={primary} />
 			</ListItemButton>
