@@ -52,6 +52,7 @@ const CustomerPanel = ({ data, onSave }) => {
 						formikConfig={{
 							initialValues: data,
 							validationSchema,
+							// FIXME: Submit event not working properly
 							onSubmit: () => console.log('Customer submit'),
 						}}
 						id='customer-form'
@@ -68,6 +69,7 @@ const CustomerPanel = ({ data, onSave }) => {
 								<div />
 							</HorizontalGroup>
 						</TabPanel>
+
 						<TabPanel value='2'>
 							{/* Dane kontaktowe */}
 							<HorizontalGroup>
