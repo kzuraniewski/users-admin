@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Tab, Typography, Box, Paper, TextField, InputAdornment } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { useFormik } from 'formik';
+import { EditableForm, EditableField, HorizontalGroup } from '../editable-form';
 import * as yup from 'yup';
 
 // TODO: Better validation
@@ -24,77 +24,9 @@ const validationSchema = yup.object({
 	rata2: yup.number(),
 });
 
-const DisplayContext = React.createContext(null);
-
-const Field = ({ label, name, short = false, money = false, ...props }) => {
-	return (
-		<DisplayContext.Consumer>
-			{({ editMode, formik }) =>
-				editMode ? (
-					<TextField
-						name={name}
-						label={label}
-						value={
-							formik.values[name].toString().length
-								? formik.values[name]
-								: editMode
-								? ' '
-								: ''
-						}
-						onChange={formik.handleChange}
-						error={Boolean(formik.touched[name] && formik.errors[name])}
-						helperText={
-							formik.touched[name] && formik.errors[name] && 'Nieprawidłowa wartość'
-						}
-						onBlur={() => formik.setTouched({ ...formik.touched, [name]: true })}
-						onFocus={() => formik.setTouched({ ...formik.touched, [name]: false })}
-						fullWidth={!short}
-						InputProps={
-							//prettier-ignore
-							money ? 
-								{ endAdornment: <InputAdornment position='end'>zł</InputAdornment> }
-								: null
-						}
-						{...props}
-					/>
-				) : (
-					<Box mb={1} mt={2}>
-						<Typography variant='caption' color={'rgba(0, 0, 0, 0.6)'}>
-							{label}
-						</Typography>
-						<Typography variant='body2' sx={{ mt: 0.5, fontSize: '1rem' }}>
-							{`${formik.values[name]}${money ? ' zł' : ''}` ?? '[Brak]'}
-						</Typography>
-					</Box>
-				)
-			}
-		</DisplayContext.Consumer>
-	);
-};
-
-const HorizontalGroup = ({ children, ...props }) => {
-	return (
-		<Box
-			display='flex'
-			justifyContent='space-between'
-			width='100%'
-			sx={{ '& > *': { flex: 1, '&:not(:last-child)': { pr: 5 } } }}
-			{...props}
-		>
-			{children}
-		</Box>
-	);
-};
-
 const CustomerPanel = ({ data, onSave }) => {
 	const [tabIndex, setTabIndex] = useState('1');
 	const [editMode, setEditMode] = useState(false);
-
-	const formik = useFormik({
-		initialValues: data,
-		validationSchema,
-		onSubmit: onSave,
-	});
 
 	return (
 		<Box>
@@ -115,56 +47,57 @@ const CustomerPanel = ({ data, onSave }) => {
 					</Box>
 
 					{/* Form */}
-					<DisplayContext.Provider value={{ formik, editMode }}>
-						<form
-							id='customer-form'
-							onSubmit={e => {
-								formik.handleSubmit(e);
-							}}
-						>
-							<TabPanel value='1'>
-								{/* Ogólne */}
-								<HorizontalGroup>
-									<div>
-										<Field label='LP' name='lp' disabled />
-										<Field label='Data' name='data' />
-										<Field label='Adres strony' name='url' />
-									</div>
+					<EditableForm
+						editMode={editMode}
+						formikConfig={{
+							initialValues: data,
+							validationSchema,
+							onSubmit: () => console.log('Customer submit'),
+						}}
+						id='customer-form'
+					>
+						<TabPanel value='1'>
+							{/* Ogólne */}
+							<HorizontalGroup>
+								<div>
+									<EditableField label='LP' name='lp' disabled />
+									<EditableField label='Data' name='data' />
+									<EditableField label='Adres strony' name='url' />
+								</div>
 
-									<div />
-								</HorizontalGroup>
-							</TabPanel>
-							<TabPanel value='2'>
-								{/* Dane kontaktowe */}
-								<HorizontalGroup>
-									<div>
-										<Field label='Nazwa firmy' name='firma' />
-										<Field label='Adres firmy' name='adres' />
-										<Field label='NIP' name='nip' />
-									</div>
+								<div />
+							</HorizontalGroup>
+						</TabPanel>
+						<TabPanel value='2'>
+							{/* Dane kontaktowe */}
+							<HorizontalGroup>
+								<div>
+									<EditableField label='Nazwa firmy' name='firma' />
+									<EditableField label='Adres firmy' name='adres' />
+									<EditableField label='NIP' name='nip' />
+								</div>
 
-									<div>
-										<Field label='Reprezentant' name='reprezentant' />
-										<Field label='E-mail' name='email' />
-										<Field label='Telefon' name='telefon' />
-									</div>
-								</HorizontalGroup>
-							</TabPanel>
+								<div>
+									<EditableField label='Reprezentant' name='reprezentant' />
+									<EditableField label='E-mail' name='email' />
+									<EditableField label='Telefon' name='telefon' />
+								</div>
+							</HorizontalGroup>
+						</TabPanel>
 
-							<TabPanel value='3'>
-								<HorizontalGroup>
-									<Field label='Kwota całkowita' name='calkowita' money />
+						<TabPanel value='3'>
+							<HorizontalGroup>
+								<EditableField label='Kwota całkowita' name='calkowita' money />
 
-									<div />
-								</HorizontalGroup>
+								<div />
+							</HorizontalGroup>
 
-								<HorizontalGroup>
-									<Field label='Rata 1' name='rata1' money />
-									<Field label='Rata 2' name='rata2' money />
-								</HorizontalGroup>
-							</TabPanel>
-						</form>
-					</DisplayContext.Provider>
+							<HorizontalGroup>
+								<EditableField label='Rata 1' name='rata1' money />
+								<EditableField label='Rata 2' name='rata2' money />
+							</HorizontalGroup>
+						</TabPanel>
+					</EditableForm>
 				</TabContext>
 
 				<Box display='flex' justifyContent='flex-end' mt='auto'>
