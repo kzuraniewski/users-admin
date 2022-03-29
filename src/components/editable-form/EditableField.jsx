@@ -3,6 +3,9 @@ import { Box, InputAdornment, TextField, Typography } from '@mui/material';
 import { FormContext } from './EditableForm.jsx';
 
 const EditableField = ({ label, name, short = false, money = false, ...props }) => {
+	const fixedValue = (value, replacer = '', after = '') =>
+		value?.toString().length ? `${value} ${after}` : replacer;
+
 	return (
 		<FormContext.Consumer>
 			{({ editMode, formik }) =>
@@ -10,13 +13,7 @@ const EditableField = ({ label, name, short = false, money = false, ...props }) 
 					<TextField
 						name={name}
 						label={label}
-						value={
-							formik.values[name].toString().length
-								? formik.values[name]
-								: editMode
-								? ' '
-								: ''
-						}
+						value={fixedValue(formik.values[name])}
 						onChange={formik.handleChange}
 						error={Boolean(formik.touched[name] && formik.errors[name])}
 						helperText={
@@ -39,7 +36,7 @@ const EditableField = ({ label, name, short = false, money = false, ...props }) 
 							{label}
 						</Typography>
 						<Typography variant='body2' sx={{ mt: 0.5, fontSize: '1rem' }}>
-							{`${formik.values[name]}${money ? ' zł' : ''}` ?? '[Brak]'}
+							{fixedValue(formik.values[name], '[brak]', money ? 'zł' : '')}
 						</Typography>
 					</Box>
 				)
