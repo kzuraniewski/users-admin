@@ -6,6 +6,7 @@ import CustomersTable from './CustomersTable.jsx';
 import CustomerPanel from './CustomerPanel.jsx';
 import { Route, Routes } from 'react-router-dom';
 import getRandomUsers from '../../testing/getRandomUsers.js';
+import { useDocumentTitle } from '../../hooks.js';
 
 // Columns and rows will be fetched from db
 const columns = [
@@ -49,6 +50,8 @@ const Customers = () => {
 		hideable: false,
 		width: 60,
 	});
+
+	useDocumentTitle('Klienci');
 
 	return (
 		<Box flex={1} height='80vh' padding='45px 30px'>
